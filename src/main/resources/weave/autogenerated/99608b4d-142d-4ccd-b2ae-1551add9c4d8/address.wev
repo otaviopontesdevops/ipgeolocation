@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_99608b4d_142d_4ccd_b2ae_1551add9c4d8_Output_Variables_ip_address = String | Null
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="272cb620-b209-4e36-add2-794df5c9aa57" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="sys-ipgeolocation-devFlow" doc:id="5821fc3a-2061-4d17-8616-eb814552958e" >
+		<http:listener doc:name="Listener" doc:id="e811b520-2485-44a8-a988-f3ba4bddc9a5" config-ref="HTTP_Listener_config" path="/geolocation/v1/"/>
+		<logger level="INFO" doc:name="payload" doc:id="07fecc98-ca86-4d41-9277-803beb3ce09b" message="#[payload]"/>
+		<set-variable value="#[attributes.headers.api_key]" doc:name="api_key" doc:id="663ff276-41ea-4af8-a613-3f9160d69aa3" variableName="api_key"/>
+		<set-variable value="#[attributes.headers.ip_address]" doc:name="ip_address" doc:id="68dfd32f-0475-4efb-a129-60370b83b32c" variableName="ip_address"/>
+		<flow-ref doc:name="ipGeolocationApiFlow" doc:id="375c77b9-791d-42d7-8879-f426ce05e857" name="ipGeolocationApiFlow"/>
+	</flow>
+</mule>

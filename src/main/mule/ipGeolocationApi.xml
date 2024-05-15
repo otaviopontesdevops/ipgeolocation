@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="ipGeolocationApiFlow" doc:id="99608b4d-142d-4ccd-b2ae-1551add9c4d8" >
+		<http:request method="GET" doc:name="Request" doc:id="d2d7e4be-c7b5-4843-b863-86cf0b62e420" url='#["https://ipgeolocation.abstractapi.com/v1/?api_key=" ++ vars.api_key ++ "&amp;ip_address=" ++ vars.ip_address]' >
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	api_key : vars.api_key,
+	ip_address : vars.ip_address
+}]]]></http:uri-params>
+		</http:request>
+	</flow>
+</mule>
